@@ -13,11 +13,16 @@ export class TweetsService {
   ) {}
 
   create(createTweetDto: CreateTweetDto) {
-    return 'This action adds a new tweet';
+    return this.tweetModel.create(createTweetDto);
   }
 
-  findAll() {
-    return `This action returns all tweets`;
+  findAll(
+    { offset, limit }: { offset: number; limit: number } = {
+      offset: 0,
+      limit: 50,
+    },
+  ) {
+    return this.tweetModel.find().skip(offset).limit(limit).exec();
   }
 
   findOne(id: number) {

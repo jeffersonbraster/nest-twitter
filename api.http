@@ -1,1 +1,24 @@
 GET http://localhost:3000/tweets
+
+###
+POST http://localhost:3000/tweets
+Content-Type: application/json
+
+{
+  "Text": "Teste",
+  "User": {
+    "Name": "jeje"
+  }
+}
+
+###
+GET http://localhost:3000/mail-list
+
+###
+POST http://localhost:3000/mail-list
+Content-Type: application/json
+
+{
+  "emails": ["jeje@gmail.com", "user2@test.com"]
+  
+}
