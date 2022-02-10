@@ -5,13 +5,19 @@ import { TweetsModule } from './tweets/tweets.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MailListModule } from './mail-list/mail-list.module';
+import { BullModule } from '@nestjs/bull';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb://root:root@db/analytics?authSource=admin',
-      { useNewUrlParser: true },
-    ),
+    ConfigModule.forRoot(),
+    BullModule.forRoot({
+      redis: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+      },
+    }),
+    MongooseModule.forRoot(process.env.MONGO_DNS, { useNewUrlParser: true }),
     ScheduleModule.forRoot(),
     TweetsModule,
     MailListModule,
